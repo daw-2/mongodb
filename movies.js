@@ -50,6 +50,12 @@ db.movies.insertMany([
                 firstname: 'Robert',
                 birthday: new Date('1943-08-17'),
                 role: 'Neil McCauley'
+            },
+            {
+                name: 'Kilmer',
+                firstname: 'Val',
+                birthday: new Date('1959-12-31'),
+                role: 'Chris Shiherlis'
             }
         ]
     },
