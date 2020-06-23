@@ -2,22 +2,22 @@ use cinema
 
 db.movies.insertMany([
     {
-        title: 'Le Parrain',
-        released_at: 1972,
-        category: 'Crime',
-        overview: 'Lorem ipsum',
-        country: 'US',
-        director: {
-            name: 'Coppola',
-            firstname: 'Francis',
-            birthday: new Date('1939-04-07')
+        title: 'Le Parrain', // required string
+        released_at: 1972, // required int (1900 et 3000)
+        category: 'Crime', // required enum
+        overview: 'Lorem ipsum', // not required
+        country: 'US', // required string
+        director: { // required object
+            name: 'Coppola', // required string
+            firstname: 'Francis', // required string
+            birthday: new Date('1939-04-07') // required date
         },
-        actors: [
-            {
-                name: 'Pacino',
-                firstname: 'Al',
-                birthday: new Date('1940-04-25'),
-                role: 'Michael Corleone'
+        actors: [ // array with minimum 1 actor
+            { // object
+                name: 'Pacino', // required string
+                firstname: 'Al', // required string
+                birthday: new Date('1940-04-25'), // required date
+                role: 'Michael Corleone' // required string
             },
             {
                 name: 'Brando',
@@ -86,3 +86,41 @@ db.movies.insertMany([
         ]
     },
 ]);
+
+db.runCommand({
+    collMod: 'movies',
+    validator: { $jsonSchema: {
+        bsonType: 'object',
+        required: ['title', 'released_at', 'category', 'country', 'director', 'actors'],
+        properties: {
+            title: { bsonType: 'string', description: 'Title must be a string' },
+            released_at: { bsonType: 'int', minimum: 1900, maximum: 3000 },
+            category: { enum: ['Crime', 'Science-Fiction'] },
+            overview: { bsonType: 'string' },
+            country: { bsonType: 'string' },
+            director: {
+                bsonType: 'object',
+                required: ['name', 'firstname', 'birthday'],
+                properties: {
+                    name: { bsonType: 'string' },
+                    firstname: { bsonType: 'string' },
+                    birthday: { bsonType: 'date' }
+                }
+            },
+            actors: {
+                bsonType: 'array',
+                minItems: 1,
+                items: {
+                    bsonType: 'object',
+                    required: ['name', 'firstname', 'birthday', 'role'],
+                    properties: {
+                        name: { bsonType: 'string' },
+                        firstname: { bsonType: 'string' },
+                        birthday: { bsonType: 'date' },
+                        role: { bsonType: 'string' }
+                    }
+                }
+            }
+        }
+    } }
+})
