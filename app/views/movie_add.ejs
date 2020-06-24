@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <body>
+        <form action="" method="POST">
+            <div>
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name">
+            </div>
+            <div>
+              <label for="released_at">Released at</label>
+              <input type="text" name="released_at" id="released_at">
+            </div>
+            <div>
+                <label>Actors</label>
+                <div class="prototype">
+                  <input type="text" name="actors[]">
+                </div>
+                <button class="add">+</button>
+              </div>
+            <button>Ajouter</button>
+        </form>
+
+        <script>
+            let handleClick = event => {
+                event.preventDefault();
+                let prototype = document.querySelector('.prototype');
+                let newField = prototype.cloneNode(true);
+                prototype.after(newField);
+            };
+
+            document.querySelector('.add').addEventListener('click', handleClick);
+        </script>
+    </body>
+</html>

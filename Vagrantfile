@@ -4,6 +4,7 @@ Vagrant.configure("2") do |config|
   (1..8).each do |i|
     config.vm.define "vm0#{i}" do |node|
       node.vm.network "private_network", ip: "10.0.0.#{i}"
+      node.vm.network "forwarded_port", guest: 80, host: 8080
     end
   end
 
