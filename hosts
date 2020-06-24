@@ -1,0 +1,8 @@
+mongo01 ansible_host=10.0.0.1
+mongo02 ansible_host=10.0.0.2
+mongo03 ansible_host=10.0.0.3
+mongo04 ansible_host=10.0.0.4
+mongo05 ansible_host=10.0.0.5
+mongo06 ansible_host=10.0.0.6
+mongo07 ansible_host=10.0.0.7
+mongo08 ansible_host=10.0.0.8
