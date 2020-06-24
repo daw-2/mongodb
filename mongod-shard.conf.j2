@@ -1,0 +1,6 @@
+{% include './mongod.conf.j2' %}
+
+sharding:
+  clusterRole: shardsvr
+replication:
+  replSetName: {{ group_names|last }}

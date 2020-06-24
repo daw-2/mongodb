@@ -1,0 +1,8 @@
+rs.initiate({
+  _id: '{{ group_names | last }}',
+  members: [
+    {% for server in groups[group_names | last] %}
+      { _id: {{ loop.index }}, host: '{{ hostvars[server].ansible_host }}:27017' },
+    {% endfor %}
+  ]
+});

@@ -1,0 +1,8 @@
+rs.initiate({
+  _id: 'mongo-config',
+  members: [
+    {% for server in groups['mongo-config'] %}
+      { _id: {{ loop.index }}, host: '{{ hostvars[server].ansible_host }}:27017' },
+    {% endfor %}
+  ]
+});
